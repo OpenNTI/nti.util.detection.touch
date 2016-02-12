@@ -1,0 +1,15 @@
+{
+  "name": "nti-util-detection-touch",
+  "version": "0.0.0",
+  "description": "Utility for detecting whether the current device is a touch screen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://repos.nextthought.com/git/nti.util.detection.touch"
+  },
+  "author": "nextthought",
+  "license": "UNLICENSED"
+}
