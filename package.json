@@ -4,7 +4,7 @@
   "description": "Utility for detecting whether the current device is a touch screen",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"not testable\" && exit 0"
   },
   "repository": {
     "type": "git",
