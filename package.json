@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Utility for detecting whether the current device is a touch screen",
   "main": "lib/index.js",
+  "files": [
+      "lib"
+  ],
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
     "prepublish": "make"
