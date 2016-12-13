@@ -37,3 +37,25 @@ export const PointerEvents = typeof PointerEvent !== 'undefined'
 			pointerOver: 'mouseover',
 			pointerUp: 'mouseup'
 		};
+
+
+function hasTouchActionSupport() {
+	if (typeof document === 'undefined') {return false;}
+
+	const div = document.createElement('div');
+	const set = (v) => div.style.setProperty('touch-action', v);
+	const isSet = (v) => div.style.getPropertyValue('touch-action') === v;
+
+	return ['none', 'auto', 'pan-x', 'pan-y', 'manipulation'].reduce((supported, value) => (set(value), supported && isSet(value)), true);
+}
+
+function hasPassiveEventListenerSupport() {
+	let supported = false;
+	try {
+		addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { supported = true; }}));
+	} catch (e) {}
+	return supported;
+}
+
+export const passiveEventListenerSupported = hasPassiveEventListenerSupport();
+export const touchActionSupported = hasTouchActionSupport();
