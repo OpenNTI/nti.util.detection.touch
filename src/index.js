@@ -39,7 +39,7 @@ export const PointerEvents = typeof PointerEvent !== 'undefined'
 		};
 
 
-function hasTouchActionSupport() {
+export const touchActionSupported = (function () {
 	if (typeof document === 'undefined') {return false;}
 
 	const div = document.createElement('div');
@@ -47,15 +47,12 @@ function hasTouchActionSupport() {
 	const isSet = (v) => div.style.getPropertyValue('touch-action') === v;
 
 	return ['none', 'auto', 'pan-x', 'pan-y', 'manipulation'].reduce((supported, value) => (set(value), supported && isSet(value)), true);
-}
+}());
 
-function hasPassiveEventListenerSupport() {
+export const passiveEventListenerSupported = (function () {
 	let supported = false;
 	try {
 		addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { supported = true; }}));
-	} catch (e) {}
+	} catch (e) {/**/}
 	return supported;
-}
-
-export const passiveEventListenerSupported = hasPassiveEventListenerSupport();
-export const touchActionSupported = hasTouchActionSupport();
+}());
