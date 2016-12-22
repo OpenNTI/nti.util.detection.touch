@@ -30,9 +30,9 @@ describe('Tests', () => {
 				passiveEventListenerSupported
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.false();
-			touchActionSupported.should.be.false();
-			passiveEventListenerSupported.should.be.false();
+			isTouchDevice.should.be.false;
+			touchActionSupported.should.be.false;
+			passiveEventListenerSupported.should.be.false;
 			PointerEvents.pointerDown.should.be.equal('mousedown');
 		});
 
@@ -42,7 +42,7 @@ describe('Tests', () => {
 				default: isTouchDevice
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.true();
+			isTouchDevice.should.be.true;
 		});
 
 		it ('Touch env (maxTouchPoints = 0) should report isTouchDevice = false', () => {
@@ -52,7 +52,7 @@ describe('Tests', () => {
 				default: isTouchDevice
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.false();
+			isTouchDevice.should.be.false;
 		});
 
 		it ('Touch env (IE 10, msMaxTouchPoints = 0) should report isTouchDevice = false', () => {
@@ -62,7 +62,7 @@ describe('Tests', () => {
 				default: isTouchDevice
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.false();
+			isTouchDevice.should.be.false;
 		});
 
 		it ('Touch env (maxTouchPoints > 0) should report isTouchDevice = true', () => {
@@ -72,7 +72,7 @@ describe('Tests', () => {
 				default: isTouchDevice
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.true();
+			isTouchDevice.should.be.true;
 		});
 
 		it ('Touch env (IE 10, msMaxTouchPoints > 0) should report isTouchDevice = true', () => {
@@ -82,7 +82,7 @@ describe('Tests', () => {
 				default: isTouchDevice
 			} = mock.reRequire('../index');
 
-			isTouchDevice.should.be.true();
+			isTouchDevice.should.be.true;
 		});
 
 		it ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
@@ -148,7 +148,7 @@ describe('Tests', () => {
 			};
 
 			const { touchActionSupported } = mock.reRequire('../index');
-			touchActionSupported.should.be.true();
+			touchActionSupported.should.be.true;
 		});
 
 		it ('touchActionSupported is false, when an element\'s touch-action style property does not retains any of the values', () => {
@@ -163,7 +163,7 @@ describe('Tests', () => {
 			};
 
 			const { touchActionSupported } = mock.reRequire('../index');
-			touchActionSupported.should.be.false();
+			touchActionSupported.should.be.false;
 		});
 
 		it ('passiveEventListenerSupported is true only when addEventListener reads the passive property from the third argument', () => {
@@ -172,7 +172,7 @@ describe('Tests', () => {
 
 			try {
 				const { passiveEventListenerSupported } = mock.reRequire('../index');
-				passiveEventListenerSupported.should.be.true();
+				passiveEventListenerSupported.should.be.true;
 			}
 			finally {
 				//put it back

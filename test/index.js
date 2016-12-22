@@ -2,7 +2,13 @@
 'use strict';
 require('babel-register');
 require('babel-polyfill');
-require('should');
+
+global.chai = require('chai');
+global.should = global.chai.should();
+global.expect = global.chai.expect;
+global.AssertionError = global.chai.AssertionError;
+// global.chai.use(require('sinon-chai'));
+global.swallow = (thrower) => {try { thrower(); } catch (e) {/**/}};
 
 const glob = require( 'glob' );
 
