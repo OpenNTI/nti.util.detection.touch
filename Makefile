@@ -23,7 +23,7 @@ check:
 	@eslint --ext .js,.jsx ./src
 
 test: node_modules check
-	@karma start --single-run
+	@mocha ./test/
 
 clean:
 	@rm -rf $(LIBDIR)
@@ -33,4 +33,4 @@ lib: $(LIB)
 lib/%.js: src/%.js
 #	@echo babel	$@...
 	@mkdir -p $(@D)
-	babel $< -o $@
+	NODE_ENV="production" babel $< -o $@
