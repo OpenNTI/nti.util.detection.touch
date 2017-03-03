@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repos.nextthought.com/git/nti.util.detection.touch"
+    "url": "https://github.com/NextThought/nti.util.detection.touch.git"
   },
   "publishConfig": {
     "registry": "https://npm.nextthought.com"
