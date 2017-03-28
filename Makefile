@@ -1,7 +1,4 @@
-.PHONY:
-	clean \
-	check \
-	test
+.PHONY: clean check test
 
 
 ROOT_DIR = $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
@@ -14,15 +11,13 @@ REPORTS = reports
 all: node_modules lib
 
 node_modules: package.json
-#	@rm -rf node_modules
-#	@npm install
-	@npm update
-	@touch $@
+	@rm -rf node_modules
+	@npm install
 
 check:
 	@eslint --ext .js,.jsx ./src
 
-test: node_modules check
+test: node_modules clean check
 	@mocha ./test/
 
 clean:
