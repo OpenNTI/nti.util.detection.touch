@@ -18,7 +18,7 @@ check:
 	@eslint --ext .js,.jsx ./src
 
 test: node_modules clean check
-	@mocha ./test/
+	@jest
 
 clean:
 	@rm -rf $(LIBDIR)

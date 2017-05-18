@@ -1,143 +1,149 @@
 /*eslint no-console: 0*/
-const mock = require('mock-require');
+function before () {
+	global.navigator = {};
+	process.browser = true;
+}
+
+function after () {
+	jest.resetModules();
+	delete global.document;
+	delete global.ontouchstart;
+	delete global.onmsgesturechange;
+	delete global.navigator;
+	delete global.PointerEvent;
+	delete process.browser;
+}
 
 describe('Tests', () => {
+	beforeEach(before);
+	afterEach(after);
 
-	it ('Imports on node', () => {
-		mock.reRequire('../index');
+
+
+	test ('Imports on node', () => {
+		require('../index');
 	});
 
 	describe ('Simulated Browser', () => {
-		beforeEach(() => {
-			global.navigator = {};
-			process.browser = true;
-		});
+		beforeEach(before);
+		afterEach(after);
 
-		afterEach(() => {
-			delete global.document;
-			delete global.ontouchstart;
-			delete global.onmsgesturechange;
-			delete global.navigator;
-			delete global.PointerEvent;
-			delete process.browser;
-		});
-
-		it ('Minimal browser env', () => {
+		test ('Minimal browser env', () => {
 			const {
 				default: isTouchDevice,
 				PointerEvents,
 				touchActionSupported,
 				passiveEventListenerSupported
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.false;
-			touchActionSupported.should.be.false;
-			passiveEventListenerSupported.should.be.false;
-			PointerEvents.pointerDown.should.be.equal('mousedown');
+			expect(isTouchDevice).toBeFalsy();
+			expect(touchActionSupported).toBeFalsy();
+			expect(passiveEventListenerSupported).toBeFalsy();
+			expect(PointerEvents.pointerDown).toEqual('mousedown');
 		});
 
-		it ('Touch env (maxTouchPoints = undefined) should report isTouchDevice = true', () => {
+		test ('Touch env (maxTouchPoints = undefined) should report isTouchDevice = true', () => {
 			global.ontouchstart = null;//key present
 			const {
 				default: isTouchDevice
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.true;
+			expect(isTouchDevice).toBe(true);
 		});
 
-		it ('Touch env (maxTouchPoints = 0) should report isTouchDevice = false', () => {
+		test ('Touch env (maxTouchPoints = 0) should report isTouchDevice = false', () => {
 			global.ontouchstart = null;//key present
 			global.navigator.maxTouchPoints = 0;
 			const {
 				default: isTouchDevice
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.false;
+			expect(isTouchDevice).toBe(false);
 		});
 
-		it ('Touch env (IE 10, msMaxTouchPoints = 0) should report isTouchDevice = false', () => {
+		test ('Touch env (IE 10, msMaxTouchPoints = 0) should report isTouchDevice = false', () => {
 			global.onmsgesturechange = null;//key present
 			global.navigator.msMaxTouchPoints = 0;
 			const {
 				default: isTouchDevice
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.false;
+			expect(isTouchDevice).toBe(false);
 		});
 
-		it ('Touch env (maxTouchPoints > 0) should report isTouchDevice = true', () => {
+		test ('Touch env (maxTouchPoints > 0) should report isTouchDevice = true', () => {
 			global.ontouchstart = null;//key present
 			global.navigator.maxTouchPoints = 2;
 			const {
 				default: isTouchDevice
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.true;
+			expect(isTouchDevice).toBe(true);
 		});
 
-		it ('Touch env (IE 10, msMaxTouchPoints > 0) should report isTouchDevice = true', () => {
+		test ('Touch env (IE 10, msMaxTouchPoints > 0) should report isTouchDevice = true', () => {
 			global.onmsgesturechange = null;//key present
 			global.navigator.msMaxTouchPoints = 2;
 			const {
 				default: isTouchDevice
-			} = mock.reRequire('../index');
+			} = require('../index');
 
-			isTouchDevice.should.be.true;
+			expect(isTouchDevice).toBe(true);
 		});
 
-		it ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-			const {PointerEvents} = mock.reRequire('../index');
+		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
+			const {PointerEvents} = require('../index');
 
-			PointerEvents.pointerDown.should.be.equal('mousedown');
-			PointerEvents.pointerEnter.should.be.equal('mouseenter');
-			PointerEvents.pointerLeave.should.be.equal('mouseleave');
-			PointerEvents.pointerMove.should.be.equal('mousemove');
-			PointerEvents.pointerOut.should.be.equal('mouseout');
-			PointerEvents.pointerOver.should.be.equal('mouseover');
-			PointerEvents.pointerUp.should.be.equal('mouseup');
+			expect(PointerEvents.pointerDown).toEqual('mousedown');
+			expect(PointerEvents.pointerEnter).toEqual('mouseenter');
+			expect(PointerEvents.pointerLeave).toEqual('mouseleave');
+			expect(PointerEvents.pointerMove).toEqual('mousemove');
+			expect(PointerEvents.pointerOut).toEqual('mouseout');
+			expect(PointerEvents.pointerOver).toEqual('mouseover');
+			expect(PointerEvents.pointerUp).toEqual('mouseup');
 		});
 
-		it ('PointerEvents (PointerEvent is undefined, isTouchDevice = true) sets touch events', () => {
+		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = true) sets touch events', () => {
 			global.ontouchstart = null;//key present
-			const {PointerEvents} = mock.reRequire('../index');
+			const {PointerEvents} = require('../index');
 
-			PointerEvents.pointerDown.should.be.equal('touchstart');
-			PointerEvents.pointerEnter.should.be.equal('touchenter');
-			PointerEvents.pointerLeave.should.be.equal('touchleave');
-			PointerEvents.pointerMove.should.be.equal('touchmove');
-			PointerEvents.pointerOut.should.be.equal('touchcancel');
-			PointerEvents.pointerOver.should.be.equal('-NA-');
-			PointerEvents.pointerUp.should.be.equal('touchend');
+			expect(PointerEvents.pointerDown).toEqual('touchstart');
+			expect(PointerEvents.pointerEnter).toEqual('touchenter');
+			expect(PointerEvents.pointerLeave).toEqual('touchleave');
+			expect(PointerEvents.pointerMove).toEqual('touchmove');
+			expect(PointerEvents.pointerOut).toEqual('touchcancel');
+			expect(PointerEvents.pointerOver).toEqual('-NA-');
+			expect(PointerEvents.pointerUp).toEqual('touchend');
 		});
 
-		it ('PointerEvents (PointerEvent is defined, isTouchDevice = false) sets pointer events', () => {
+		test ('PointerEvents (PointerEvent is defined, isTouchDevice = false) sets pointer events', () => {
 			global.PointerEvent = {};//Key value is not 'undefined'
-			const {PointerEvents} = mock.reRequire('../index');
+			const {PointerEvents} = require('../index');
 
-			PointerEvents.pointerDown.should.be.equal('pointerdown');
-			PointerEvents.pointerEnter.should.be.equal('pointerenter');
-			PointerEvents.pointerLeave.should.be.equal('pointerleave');
-			PointerEvents.pointerMove.should.be.equal('pointermove');
-			PointerEvents.pointerOut.should.be.equal('pointerout');
-			PointerEvents.pointerOver.should.be.equal('pointerover');
-			PointerEvents.pointerUp.should.be.equal('pointerup');
+			expect(PointerEvents.pointerDown).toEqual('pointerdown');
+			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
+			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
+			expect(PointerEvents.pointerMove).toEqual('pointermove');
+			expect(PointerEvents.pointerOut).toEqual('pointerout');
+			expect(PointerEvents.pointerOver).toEqual('pointerover');
+			expect(PointerEvents.pointerUp).toEqual('pointerup');
 		});
 
-		it ('PointerEvents (PointerEvent is defined, isTouchDevice = true) sets pointer events', () => {
+		test ('PointerEvents (PointerEvent is defined, isTouchDevice = true) sets pointer events', () => {
 			global.ontouchstart = null;//key present
 			global.PointerEvent = {};//Key value is not 'undefined'
-			const {PointerEvents} = mock.reRequire('../index');
+			const {PointerEvents} = require('../index');
 
-			PointerEvents.pointerDown.should.be.equal('pointerdown');
-			PointerEvents.pointerEnter.should.be.equal('pointerenter');
-			PointerEvents.pointerLeave.should.be.equal('pointerleave');
-			PointerEvents.pointerMove.should.be.equal('pointermove');
-			PointerEvents.pointerOut.should.be.equal('pointerout');
-			PointerEvents.pointerOver.should.be.equal('pointerover');
-			PointerEvents.pointerUp.should.be.equal('pointerup');
+			expect(PointerEvents.pointerDown).toEqual('pointerdown');
+			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
+			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
+			expect(PointerEvents.pointerMove).toEqual('pointermove');
+			expect(PointerEvents.pointerOut).toEqual('pointerout');
+			expect(PointerEvents.pointerOver).toEqual('pointerover');
+			expect(PointerEvents.pointerUp).toEqual('pointerup');
 		});
 
-		it ('touchActionSupported is true, only when an element\'s touch-action style property retains all the values', () => {
+		test ('touchActionSupported is true, only when an element\'s touch-action style property retains all the values', () => {
 			global.document = {
 				createElement: () => ({
 					style: {
@@ -147,11 +153,11 @@ describe('Tests', () => {
 				})
 			};
 
-			const { touchActionSupported } = mock.reRequire('../index');
-			touchActionSupported.should.be.true;
+			const { touchActionSupported } = require('../index');
+			expect(touchActionSupported).toBe(true);
 		});
 
-		it ('touchActionSupported is false, when an element\'s touch-action style property does not retains any of the values', () => {
+		test ('touchActionSupported is false, when an element\'s touch-action style property does not retains any of the values', () => {
 			const allow = {auto: 1, none: 1};
 			global.document = {
 				createElement: () => ({
@@ -162,17 +168,17 @@ describe('Tests', () => {
 				})
 			};
 
-			const { touchActionSupported } = mock.reRequire('../index');
-			touchActionSupported.should.be.false;
+			const { touchActionSupported } = require('../index');
+			expect(touchActionSupported).toBe(false);
 		});
 
-		it ('passiveEventListenerSupported is true only when addEventListener reads the passive property from the third argument', () => {
+		test ('passiveEventListenerSupported is true only when addEventListener reads the passive property from the third argument', () => {
 			const original = global.addEventListener;
 			global.addEventListener = (_, __, ops) => ops.passive === ''; //just trigger a 'get' on the passive property.
 
 			try {
-				const { passiveEventListenerSupported } = mock.reRequire('../index');
-				passiveEventListenerSupported.should.be.true;
+				const { passiveEventListenerSupported } = require('../index');
+				expect(passiveEventListenerSupported).toBe(true);
 			}
 			finally {
 				//put it back

@@ -1,15 +1,21 @@
 {
+	"compact": false,
+	"sourceMaps": "both",
 	"env": {
-		"production": {
+		"development": {
 			"presets": [
 				["env", {
 					"targets": {
 						"browsers": ["> 1%", "last 2 versions"]
-					}
+					},
+					"modules": false
 				}]
+			],
+			"plugins": [
+				"external-helpers"
 			]
 		},
-		"development": {
+		"test": {
 			"presets": [
 				["env", {
 					"targets": {
@@ -18,8 +24,5 @@
 				}]
 			]
 		}
-	},
-	"compact": false,
-	"sourceMaps": "both",
-	"sourceRoot": "./"
+	}
 }
