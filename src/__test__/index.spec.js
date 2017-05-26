@@ -11,7 +11,6 @@ function after () {
 	delete global.onmsgesturechange;
 	delete global.navigator;
 	delete global.PointerEvent;
-	delete process.browser;
 }
 
 describe('Tests', () => {
@@ -92,6 +91,7 @@ describe('Tests', () => {
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
+			global.PointerEvent = void 0;
 			const {PointerEvents} = require('../index');
 
 			expect(PointerEvents.pointerDown).toEqual('mousedown');
