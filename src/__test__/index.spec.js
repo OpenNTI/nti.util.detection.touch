@@ -1,5 +1,6 @@
 /*eslint no-console: 0*/
 function before () {
+	jest.resetModules();
 	global.navigator = {};
 	process.browser = true;
 }
@@ -91,9 +92,9 @@ describe('Tests', () => {
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-			global.PointerEvent = void 0;
-			const {PointerEvents} = require('../index');
+			const {PointerEvents, isTouchDevice} = require('../index');
 
+			expect(isTouchDevice).toBeFalsy();
 			expect(PointerEvents.pointerDown).toEqual('mousedown');
 			expect(PointerEvents.pointerEnter).toEqual('mouseenter');
 			expect(PointerEvents.pointerLeave).toEqual('mouseleave');
