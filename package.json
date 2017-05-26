@@ -22,13 +22,13 @@
   "devDependencies": {
     "babel-cli": "^6.1.0",
     "babel-eslint": "^7.0.0",
-    "babel-jest": "^19.0.0",
+    "babel-jest": "^20.0.0",
     "babel-polyfill": "^6.1.0",
     "babel-preset-env": "^1.1.4",
     "babel-register": "^6.18.0",
     "eslint-config-nti-codestyle-js": "^1.1.0",
     "in-publish": "^2.0.0",
-    "jest": "^19.0.2",
+    "jest": "^20.0.0",
     "jest-junit": "^1.4.0"
   },
   "jest": {
@@ -38,7 +38,11 @@
       "!**/*.spec.js"
     ],
     "coverageDirectory": "reports/coverage",
-    "coverageReporters": ["text", "lcov", "cobertura"],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "cobertura"
+    ],
     "testResultsProcessor": "./node_modules/jest-junit"
   },
   "jest-junit": {
