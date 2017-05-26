@@ -92,16 +92,16 @@ describe('Tests', () => {
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-			const o = require('../index');
+			const {PointerEvents, isTouchDevice} = require('../index');
 
-			expect(o.isTouchDevice).toBeFalsy();
-			expect(o.PointerEvents.pointerDown).toEqual('mousedown');
-			expect(o.PointerEvents.pointerEnter).toEqual('mouseenter');
-			expect(o.PointerEvents.pointerLeave).toEqual('mouseleave');
-			expect(o.PointerEvents.pointerMove).toEqual('mousemove');
-			expect(o.PointerEvents.pointerOut).toEqual('mouseout');
-			expect(o.PointerEvents.pointerOver).toEqual('mouseover');
-			expect(o.PointerEvents.pointerUp).toEqual('mouseup');
+			expect(isTouchDevice).toBeFalsy();
+			expect(PointerEvents.pointerDown).toEqual('mousedown');
+			expect(PointerEvents.pointerEnter).toEqual('mouseenter');
+			expect(PointerEvents.pointerLeave).toEqual('mouseleave');
+			expect(PointerEvents.pointerMove).toEqual('mousemove');
+			expect(PointerEvents.pointerOut).toEqual('mouseout');
+			expect(PointerEvents.pointerOver).toEqual('mouseover');
+			expect(PointerEvents.pointerUp).toEqual('mouseup');
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = true) sets touch events', () => {
