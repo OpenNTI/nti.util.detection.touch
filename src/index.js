@@ -1,4 +1,4 @@
-const firstNonNull = (value, key) => value != null ? value : navigator[key];
+const firstNonNull = (value, key) => value != null ? value : global.navigator[key];
 const MaxTouchPoints = typeof navigator !== 'undefined' ? (['msMaxTouchPoints', 'maxTouchPoints'].reduce(firstNonNull, null)) : null;
 const hasMaxTouchPoints = MaxTouchPoints != null;
 const isTouchDevice = process.browser && (
@@ -53,7 +53,7 @@ export const touchActionSupported = (function () {
 export const passiveEventListenerSupported = (function () {
 	let supported = false;
 	try {
-		addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { supported = true; }}));
+		global.addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { supported = true; }}));
 	} catch (e) {/**/}
 	return supported;
 }());

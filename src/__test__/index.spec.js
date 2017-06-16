@@ -1,4 +1,5 @@
-/*eslint no-console: 0*/
+/* eslint-env jest */
+/* eslint-disable no-console*/
 function before () {
 	jest.resetModules();
 	global.navigator = {};
