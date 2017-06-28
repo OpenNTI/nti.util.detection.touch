@@ -98,8 +98,35 @@ describe('Tests', () => {
 			expect(isTouchDevice).toBe(true);
 		});
 
+		test ('PointerEvents (PointerEvent is defined, isTouchDevice = true) sets pointer events', () => {
+			global.ontouchstart = null;//key present
+			global.PointerEvent = {};//Key value is not 'undefined'
+			const {PointerEvents} = require('../index');
+
+			expect(PointerEvents.pointerDown).toEqual('pointerdown');
+			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
+			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
+			expect(PointerEvents.pointerMove).toEqual('pointermove');
+			expect(PointerEvents.pointerOut).toEqual('pointerout');
+			expect(PointerEvents.pointerOver).toEqual('pointerover');
+			expect(PointerEvents.pointerUp).toEqual('pointerup');
+		});
+
+		test ('PointerEvents (PointerEvent is defined, isTouchDevice = false) sets pointer events', () => {
+			global.PointerEvent = {};//Key value is not 'undefined'
+			const {PointerEvents} = require('../index');
+
+			expect(PointerEvents.pointerDown).toEqual('pointerdown');
+			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
+			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
+			expect(PointerEvents.pointerMove).toEqual('pointermove');
+			expect(PointerEvents.pointerOut).toEqual('pointerout');
+			expect(PointerEvents.pointerOver).toEqual('pointerover');
+			expect(PointerEvents.pointerUp).toEqual('pointerup');
+		});
+
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-			global.logit = true;
+			before();//extra reset?
 			const {PointerEvents, isTouchDevice} = require('../index');
 
 			expect(isTouchDevice).toBeFalsy();
@@ -123,33 +150,6 @@ describe('Tests', () => {
 			expect(PointerEvents.pointerOut).toEqual('touchcancel');
 			expect(PointerEvents.pointerOver).toEqual('-NA-');
 			expect(PointerEvents.pointerUp).toEqual('touchend');
-		});
-
-		test ('PointerEvents (PointerEvent is defined, isTouchDevice = false) sets pointer events', () => {
-			global.PointerEvent = {};//Key value is not 'undefined'
-			const {PointerEvents} = require('../index');
-
-			expect(PointerEvents.pointerDown).toEqual('pointerdown');
-			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
-			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
-			expect(PointerEvents.pointerMove).toEqual('pointermove');
-			expect(PointerEvents.pointerOut).toEqual('pointerout');
-			expect(PointerEvents.pointerOver).toEqual('pointerover');
-			expect(PointerEvents.pointerUp).toEqual('pointerup');
-		});
-
-		test ('PointerEvents (PointerEvent is defined, isTouchDevice = true) sets pointer events', () => {
-			global.ontouchstart = null;//key present
-			global.PointerEvent = {};//Key value is not 'undefined'
-			const {PointerEvents} = require('../index');
-
-			expect(PointerEvents.pointerDown).toEqual('pointerdown');
-			expect(PointerEvents.pointerEnter).toEqual('pointerenter');
-			expect(PointerEvents.pointerLeave).toEqual('pointerleave');
-			expect(PointerEvents.pointerMove).toEqual('pointermove');
-			expect(PointerEvents.pointerOut).toEqual('pointerout');
-			expect(PointerEvents.pointerOver).toEqual('pointerover');
-			expect(PointerEvents.pointerUp).toEqual('pointerup');
 		});
 
 		test ('touchActionSupported is true, only when an element\'s touch-action style property retains all the values', () => {
