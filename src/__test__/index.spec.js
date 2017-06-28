@@ -8,7 +8,6 @@ function before () {
 	delete global.ontouchstart;
 	delete global.onmsgesturechange;
 	delete global.PointerEvent;
-	delete global.logit;
 }
 
 function after () {
@@ -18,14 +17,9 @@ function after () {
 	delete global.onmsgesturechange;
 	delete global.navigator;
 	delete global.PointerEvent;
-	delete global.logit;
 }
 
 describe('Tests', () => {
-	beforeEach(before);
-	afterEach(after);
-
-
 
 	test ('Imports on node', () => {
 		require('../index');
@@ -126,7 +120,6 @@ describe('Tests', () => {
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-			before();//extra reset?
 			const {PointerEvents, isTouchDevice} = require('../index');
 
 			expect(isTouchDevice).toBeFalsy();
