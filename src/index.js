@@ -4,7 +4,7 @@ const hasMaxTouchPoints = MaxTouchPoints != null;
 const isTouchDevice = process.browser && (
 	'ontouchstart' in global || // everyone else
 	'onmsgesturechange' in global //IE10
-	)
+)
 	&& (!hasMaxTouchPoints || MaxTouchPoints > 0);
 
 export default isTouchDevice;
