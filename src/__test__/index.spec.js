@@ -4,6 +4,11 @@ function before () {
 	jest.resetModules();
 	global.navigator = {};
 	process.browser = true;
+	delete global.document;
+	delete global.ontouchstart;
+	delete global.onmsgesturechange;
+	delete global.PointerEvent;
+	delete global.logit;
 }
 
 function after () {
@@ -13,6 +18,7 @@ function after () {
 	delete global.onmsgesturechange;
 	delete global.navigator;
 	delete global.PointerEvent;
+	delete global.logit;
 }
 
 describe('Tests', () => {
@@ -93,6 +99,7 @@ describe('Tests', () => {
 		});
 
 		test ('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
+			global.logit = true;
 			const {PointerEvents, isTouchDevice} = require('../index');
 
 			expect(isTouchDevice).toBeFalsy();

@@ -8,7 +8,9 @@ const isTouchDevice = process.browser && (
 	&& (!hasMaxTouchPoints || MaxTouchPoints > 0);
 
 export default isTouchDevice;
-
+if(global.logit) {
+	console.warn('ontouchstart: %s %s\nonmsgesturechange: %s %s', 'ontouchstart' in global, global.ontouchstart, 'onmsgesturechange' in global, global.onmsgesturechange);
+}
 export const PointerEvents = typeof global.PointerEvent !== 'undefined'
 	? {
 		pointerDown: 'pointerdown',
