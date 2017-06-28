@@ -8,7 +8,7 @@ const isTouchDevice = process.browser && (
 	&& (!hasMaxTouchPoints || MaxTouchPoints > 0);
 
 export default isTouchDevice;
-export const PointerEvents = typeof global.PointerEvent !== 'undefined'
+export const PointerEvents = global.PointerEvent != null
 	? {
 		pointerDown: 'pointerdown',
 		pointerEnter: 'pointerenter',
