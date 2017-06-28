@@ -1,14 +1,15 @@
 const firstNonNull = (value, key) => value != null ? value : global.navigator[key];
 const MaxTouchPoints = typeof navigator !== 'undefined' ? (['msMaxTouchPoints', 'maxTouchPoints'].reduce(firstNonNull, null)) : null;
 const hasMaxTouchPoints = MaxTouchPoints != null;
-const isTouchDevice = process.browser && (
-	'ontouchstart' in global || // everyone else
-	'onmsgesturechange' in global //IE10
+const isTouchDevice = process.browser && typeof window !== 'undefined' && (
+	'ontouchstart' in window || // everyone else
+	'onmsgesturechange' in window //IE10
 )
 	&& (!hasMaxTouchPoints || MaxTouchPoints > 0);
 
 export default isTouchDevice;
-export const PointerEvents = global.PointerEvent != null
+
+export const PointerEvents = typeof window !== 'undefined' && window.PointerEvent != null
 	? {
 		pointerDown: 'pointerdown',
 		pointerEnter: 'pointerenter',
