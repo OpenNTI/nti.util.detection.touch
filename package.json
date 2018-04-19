@@ -1,6 +1,6 @@
 {
   "name": "@nti/util-detection-touch",
-  "version": "1.3.0-alpha",
+  "version": "1.3.0",
   "description": "Utility for detecting whether the current device is a touch screen",
   "main": "lib/cjs-index.js",
   "module": "lib/index.js",
