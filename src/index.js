@@ -53,7 +53,7 @@ export const touchActionSupported = (function () {
 export const passiveEventListenerSupported = (function () {
 	let supported = false;
 	try {
-		global.addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { supported = true; }}));
+		global.addEventListener('test', null, Object.defineProperty({}, 'passive', {get () { return supported = true; }}));
 	} catch (e) {/**/}
 	return supported;
 }());
