@@ -2,10 +2,11 @@
   "name": "@nti/util-detection-touch",
   "version": "1.4.0-alpha",
   "description": "Utility for detecting whether the current device is a touch screen",
-  "main": "lib/cjs-index.js",
-  "module": "lib/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "scripts": {
     "test": "lib-scripts test",
@@ -28,6 +29,6 @@
   "license": "UNLICENSED",
   "dependencies": {},
   "devDependencies": {
-    "@nti/lib-scripts": "^1.16.0"
+    "@nti/lib-scripts": "^2.0.0"
   }
 }
