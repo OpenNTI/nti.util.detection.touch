@@ -21,7 +21,7 @@
   },
   "eslintConfig": {
     "env": {
-        "browser": true
+      "browser": true
     }
   },
   "publishConfig": {
