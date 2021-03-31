@@ -16,7 +16,7 @@ function after() {
 }
 
 test('Imports on node', () => {
-	require('../index');
+	require('../index.js');
 });
 
 describe('Simulated Browser', () => {
@@ -29,7 +29,7 @@ describe('Simulated Browser', () => {
 			PointerEvents,
 			touchActionSupported,
 			passiveEventListenerSupported,
-		} = require('../index');
+		} = require('../index.js');
 
 		expect(isTouchDevice).toBeFalsy();
 		expect(touchActionSupported).toBeFalsy();
@@ -39,7 +39,7 @@ describe('Simulated Browser', () => {
 
 	test('Touch env (maxTouchPoints = undefined) should report isTouchDevice = true', () => {
 		window.ontouchstart = null; //key present
-		const { default: isTouchDevice } = require('../index');
+		const { default: isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBe(true);
 	});
@@ -47,7 +47,7 @@ describe('Simulated Browser', () => {
 	test('Touch env (maxTouchPoints = 0) should report isTouchDevice = false', () => {
 		window.ontouchstart = null; //key present
 		navigator.maxTouchPoints = 0;
-		const { default: isTouchDevice } = require('../index');
+		const { default: isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBe(false);
 	});
@@ -55,7 +55,7 @@ describe('Simulated Browser', () => {
 	test('Touch env (IE 10, msMaxTouchPoints = 0) should report isTouchDevice = false', () => {
 		window.onmsgesturechange = null; //key present
 		navigator.msMaxTouchPoints = 0;
-		const { default: isTouchDevice } = require('../index');
+		const { default: isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBe(false);
 	});
@@ -63,7 +63,7 @@ describe('Simulated Browser', () => {
 	test('Touch env (maxTouchPoints > 0) should report isTouchDevice = true', () => {
 		window.ontouchstart = null; //key present
 		navigator.maxTouchPoints = 2;
-		const { default: isTouchDevice } = require('../index');
+		const { default: isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBe(true);
 	});
@@ -71,7 +71,7 @@ describe('Simulated Browser', () => {
 	test('Touch env (IE 10, msMaxTouchPoints > 0) should report isTouchDevice = true', () => {
 		window.onmsgesturechange = null; //key present
 		navigator.msMaxTouchPoints = 2;
-		const { default: isTouchDevice } = require('../index');
+		const { default: isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBe(true);
 	});
@@ -79,7 +79,7 @@ describe('Simulated Browser', () => {
 	test('PointerEvents (PointerEvent is defined, isTouchDevice = true) sets pointer events', () => {
 		window.ontouchstart = null; //key present
 		window.PointerEvent = {}; //Key value is not 'undefined'
-		const { PointerEvents } = require('../index');
+		const { PointerEvents } = require('../index.js');
 
 		expect(PointerEvents.pointerDown).toEqual('pointerdown');
 		expect(PointerEvents.pointerEnter).toEqual('pointerenter');
@@ -92,7 +92,7 @@ describe('Simulated Browser', () => {
 
 	test('PointerEvents (PointerEvent is defined, isTouchDevice = false) sets pointer events', () => {
 		window.PointerEvent = {}; //Key value is not 'undefined'
-		const { PointerEvents } = require('../index');
+		const { PointerEvents } = require('../index.js');
 
 		expect(PointerEvents.pointerDown).toEqual('pointerdown');
 		expect(PointerEvents.pointerEnter).toEqual('pointerenter');
@@ -104,7 +104,7 @@ describe('Simulated Browser', () => {
 	});
 
 	test('PointerEvents (PointerEvent is undefined, isTouchDevice = false) defaults to mouse events', () => {
-		const { PointerEvents, isTouchDevice } = require('../index');
+		const { PointerEvents, isTouchDevice } = require('../index.js');
 
 		expect(isTouchDevice).toBeFalsy();
 		expect(PointerEvents.pointerDown).toEqual('mousedown');
@@ -118,7 +118,7 @@ describe('Simulated Browser', () => {
 
 	test('PointerEvents (PointerEvent is undefined, isTouchDevice = true) sets touch events', () => {
 		window.ontouchstart = null; //key present
-		const { PointerEvents } = require('../index');
+		const { PointerEvents } = require('../index.js');
 
 		expect(PointerEvents.pointerDown).toEqual('touchstart');
 		expect(PointerEvents.pointerEnter).toEqual('touchenter');
@@ -143,7 +143,7 @@ describe('Simulated Browser', () => {
 			}),
 		};
 
-		const { touchActionSupported } = require('../index');
+		const { touchActionSupported } = require('../index.js');
 		expect(touchActionSupported).toBe(true);
 	});
 
@@ -162,7 +162,7 @@ describe('Simulated Browser', () => {
 			}),
 		};
 
-		const { touchActionSupported } = require('../index');
+		const { touchActionSupported } = require('../index.js');
 		expect(touchActionSupported).toBe(false);
 	});
 
@@ -171,7 +171,7 @@ describe('Simulated Browser', () => {
 		global.addEventListener = (_, __, ops) => ops.passive === ''; //just trigger a 'get' on the passive property.
 
 		try {
-			const { passiveEventListenerSupported } = require('../index');
+			const { passiveEventListenerSupported } = require('../index.js');
 			expect(passiveEventListenerSupported).toBe(true);
 		} finally {
 			//put it back
