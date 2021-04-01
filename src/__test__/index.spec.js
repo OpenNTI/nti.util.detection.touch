@@ -167,15 +167,15 @@ describe('Simulated Browser', () => {
 	});
 
 	test('passiveEventListenerSupported is true only when addEventListener reads the passive property from the third argument', () => {
-		const original = global.addEventListener;
-		global.addEventListener = (_, __, ops) => ops.passive === ''; //just trigger a 'get' on the passive property.
+		const original = window.addEventListener;
+		window.addEventListener = (_, __, ops) => ops.passive === ''; //just trigger a 'get' on the passive property.
 
 		try {
 			const { passiveEventListenerSupported } = require('../index.js');
 			expect(passiveEventListenerSupported).toBe(true);
 		} finally {
 			//put it back
-			global.addEventListener = original;
+			window.addEventListener = original;
 		}
 	});
 });
