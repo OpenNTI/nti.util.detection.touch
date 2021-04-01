@@ -1,5 +1,4 @@
-const firstNonNull = (value, key) =>
-	value != null ? value : global.navigator[key];
+const firstNonNull = (value, key) => (value != null ? value : navigator[key]);
 const MaxTouchPoints =
 	typeof navigator !== 'undefined'
 		? ['msMaxTouchPoints', 'maxTouchPoints'].reduce(firstNonNull, null)
@@ -63,7 +62,7 @@ export const touchActionSupported = (function () {
 export const passiveEventListenerSupported = (function () {
 	let supported = false;
 	try {
-		global.addEventListener(
+		window.addEventListener(
 			'test',
 			null,
 			Object.defineProperty({}, 'passive', {
