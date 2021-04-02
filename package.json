@@ -1,6 +1,6 @@
 {
   "name": "@nti/util-detection-touch",
-  "version": "1.6.0-alpha",
+  "version": "1.6.0",
   "description": "Utility for detecting whether the current device is a touch screen",
   "main": "src/index.js",
   "type": "module",
